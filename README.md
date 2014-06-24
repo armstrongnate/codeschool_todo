@@ -4,7 +4,7 @@
 <pre>bin/rails generate model User name:string email:string</pre>
 
 You should have a new model file with the following code:
-```
+```ruby
 class User < ActiveRecord::Base
 end
 ```
@@ -25,17 +25,22 @@ In your terminal type:
 
 This will launch the console. Once you are in the console type:
 
-<pre>User.first</pre>
-
+```ruby
+User.first
+```
 That should return `nil`.
 
 To create a a new user type:
 
-<pre>User.create(name: 'Nate', email: 'nate@custombit.com')</pre>
+```ruby
+User.create(name: 'Nate', email: 'nate@custombit.com')
+```
 
 Now you should be able to get the first user:
 
-<pre>User.first</pre>
+```ruby
+User.first
+```
 
 ### Play!
 ```ruby
