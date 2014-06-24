@@ -1,10 +1,11 @@
+The slideshows can be found here: http://tinyurl.com/losrh8l
 # Getting started with our Todo app
 <pre>bin/rails new todo</pre>
 <pre>cd todo/</pre>
 <pre>bin/rails generate model User name:string email:string</pre>
 
 You should have a new model file with the following code:
-```
+```ruby
 class User < ActiveRecord::Base
 end
 ```
@@ -25,17 +26,22 @@ In your terminal type:
 
 This will launch the console. Once you are in the console type:
 
-<pre>User.first</pre>
-
+```ruby
+User.first
+```
 That should return `nil`.
 
 To create a a new user type:
 
-<pre>User.create(name: 'Nate', email: 'nate@custombit.com')</pre>
+```ruby
+User.create(name: 'Nate', email: 'nate@custombit.com')
+```
 
 Now you should be able to get the first user:
 
-<pre>User.first</pre>
+```ruby
+User.first
+```
 
 ### Play!
 ```ruby
@@ -171,4 +177,134 @@ We can update this column in the console like so:
 ```ruby
 task = Task.first
 task.update_attributes(completed: true)
+```
+
+## Users Controller
+
+Generate a controller for the User model.
+
+<pre>bin/rails generate controller Users</pre>
+
+Start a rails server:
+
+<pre>bin/rails server</pre>
+
+### Users Controller Index
+
+Open your rails app in a browser at http://localhost:3000/users - You'll get an error that no route matches /users.
+
+Open `config/routes.rb` and add a route.
+
+```ruby
+Rails.application.routes.draw do
+  get '/users' => 'users#index'
+end
+```
+
+Open `app/controllers/users_controller.rb` and add an index action.
+
+```ruby
+class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+end
+```
+
+Create a file `app/views/users/index.html.erb`
+
+```
+<p>Number of users: <%= @users.count %></p>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.name %>
+      <%= user.email %>
+    </li>
+  <% end %>
+</ul>
+```
+
+### Users Controller Show
+
+Open `config/routes.rb` and add a users#show route:
+
+```ruby
+get '/users/:id' => 'users#show', as: 'user'
+```
+
+Run `bin/rake routes` to see a list of our routes.
+
+Open `app/views/users/index.html.erb` and link the user.
+
+```
+<p>Number of users: <%= @users.count %></p>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.name %>
+      <%= user.email %>
+      <%= link_to 'Show', user %>
+    </li>
+  <% end %>
+</ul>
+```
+
+Open `app/controllers/users_controller.rb` and add a show action.
+
+```ruby
+def show
+  @user = User.find(params[:id])
+end
+```
+
+Create a file `app/views/users/show.html.erb`
+
+```
+<h1>Showing <%= @user.name %></h1>
+<p><%= @user.email %></p>
+```
+
+### Users Controller New
+
+Open `config/routes.rb` and add a users#show route:
+
+```ruby
+get '/users/new' => 'users#new'
+```
+
+pen `app/views/users/index.html.erb` and link the new action.
+
+```
+<p><%= link_to 'New User', users_new_path %></p>
+```
+
+Open `app/controllers/users_controller.rb` and add a new action.
+
+```ruby
+def new
+  @user = User.new
+end
+```
+
+Create a file `app/views/users/new.html.erb`
+
+```
+<h1>New User</h1>
+
+<%= form_for @user do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: 'Your Name' %>
+  </p>
+
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email, placeholder: 'Your Email' %>
+  </p>
+
+  <p><%= f.submit %></p>
+<% end %>
 ```
