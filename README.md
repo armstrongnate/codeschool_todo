@@ -172,3 +172,133 @@ We can update this column in the console like so:
 task = Task.first
 task.update_attributes(completed: true)
 ```
+
+## Users Controller
+
+Generate a controller for the User model.
+
+<pre>bin/rails generate controller Users</pre>
+
+Start a rails server:
+
+<pre>bin/rails server</pre>
+
+### Users Controller Index
+
+Open your rails app in a browser at http://localhost:3000/users - You'll get an error that no route matches /users.
+
+Open `config/routes.rb` and add a route.
+
+```ruby
+Rails.application.routes.draw do
+  get '/users' => 'users#index'
+end
+```
+
+Open `app/controllers/users_controller.rb` and add an index action.
+
+```ruby
+class UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+end
+```
+
+Create a file `app/views/users/index.html.erb`
+
+```ruby
+<p>Number of users: <%= @users.count %></p>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.name %>
+      <%= user.email %>
+    </li>
+  <% end %>
+</ul>
+```
+
+### Users Controller Show
+
+Open `config/routes.rb` and add a users#show route:
+
+```ruby
+get '/users/:id' => 'users#show', as: 'user'
+```
+
+Run `bin/rake routes` to see a list of our routes.
+
+Open `app/views/users/index.html.erb` and link the user.
+
+```ruby
+<p>Number of users: <%= @users.count %></p>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.name %>
+      <%= user.email %>
+      <%= link_to 'Show', user %>
+    </li>
+  <% end %>
+</ul>
+```
+
+Open `app/controllers/users_controller.rb` and add a show action.
+
+```ruby
+def show
+  @user = User.find(params[:id])
+end
+```
+
+Create a file `app/views/users/show.html.erb`
+
+```ruby
+<h1>Showing <%= @user.name %></h1>
+<p><%= @user.email %></p>
+```
+
+### Users Controller New
+
+Open `config/routes.rb` and add a users#show route:
+
+```ruby
+get '/users/new' => 'users#new'
+```
+
+pen `app/views/users/index.html.erb` and link the new action.
+
+```ruby
+<p><%= link_to 'New User', users_new_path %></p>
+```
+
+Open `app/controllers/users_controller.rb` and add a new action.
+
+```ruby
+def new
+  @user = User.new
+end
+```
+
+Create a file `app/views/users/new.html.erb`
+
+```ruby
+<h1>New User</h1>
+
+<%= form_for @user do |f| %>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: 'Your Name' %>
+  </p>
+
+  <p>
+    <%= f.label :email %>
+    <%= f.text_field :email, placeholder: 'Your Email' %>
+  </p>
+
+  <p><%= f.submit %></p>
+<% end %>
+```
