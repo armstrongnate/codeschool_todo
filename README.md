@@ -1,3 +1,4 @@
+### Getting started with our Todo app
 <pre>bin/rails new todo</pre>
 <pre>cd todo/</pre>
 <pre>bin/rails generate model User name:string email:string</pre>
