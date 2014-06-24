@@ -1,3 +1,4 @@
+The slideshows can be found here: http://tinyurl.com/losrh8l
 # Getting started with our Todo app
 <pre>bin/rails new todo</pre>
 <pre>cd todo/</pre>
