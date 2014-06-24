@@ -207,7 +207,7 @@ end
 
 Create a file `app/views/users/index.html.erb`
 
-```ruby
+```
 <p>Number of users: <%= @users.count %></p>
 
 <ul>
@@ -232,7 +232,7 @@ Run `bin/rake routes` to see a list of our routes.
 
 Open `app/views/users/index.html.erb` and link the user.
 
-```ruby
+```
 <p>Number of users: <%= @users.count %></p>
 
 <ul>
@@ -256,7 +256,7 @@ end
 
 Create a file `app/views/users/show.html.erb`
 
-```ruby
+```
 <h1>Showing <%= @user.name %></h1>
 <p><%= @user.email %></p>
 ```
@@ -271,7 +271,7 @@ get '/users/new' => 'users#new'
 
 pen `app/views/users/index.html.erb` and link the new action.
 
-```ruby
+```
 <p><%= link_to 'New User', users_new_path %></p>
 ```
 
@@ -285,7 +285,7 @@ end
 
 Create a file `app/views/users/new.html.erb`
 
-```ruby
+```
 <h1>New User</h1>
 
 <%= form_for @user do |f| %>
