@@ -33,25 +33,7 @@ _You can add this line just above the `require_tree .` line._
 
 **DO NOT RENAME THE FILES FROM THEIR ORIGINAL NAMES**
 
-## Step 2: Params
-
-Open `app/views/layouts/application.html.erb` and add the following lines just above the closing `</body>` tag.
-
-```
-<script>
-  <%= render 'shared/params.js.erb' %>
-</script>
-```
-
-Then, create a new **directory** in `app/views` called `shared`. In `app/views/shared/` create a file called `_params.js.erb` and copy the below code into it:
-
-```javascript
-angular.module('todo').service('params', function() {
-  return <%= params.to_json.html_safe %>;
-});
-```
-
-## Step 3: Javascript File for Tasks
+## Step 2: Javascript File for Tasks
 
 Create a file in `app/assets/javascripts` called `tasks.js`. If `tasks.js.coffee` already exists, rename it to `tasks.js` instead, removing the `.coffee` extension.
 
@@ -72,14 +54,14 @@ app.config([
 ]);
 
 app.factory('Task', function($resource) {
-  var task = $resource('/users/:user_id/tasks/:id', { id: '@id', user_id: '@user_id' }, {
+  var task = $resource('/tasks/:id', { id: '@id' }, {
     update: { method: 'PATCH' }
   });
   return task;
 });
 ```
 
-## Step 4: Stylesheet for Tasks
+## Step 3: Stylesheet for Tasks
 
 Create a file in `app/assets/stylesheets` called `tasks.css`. If `tasks.css.scss` already exists, rename it to `tasks.css` instead, removing the `.scss` extension.
 
@@ -99,7 +81,7 @@ In `tasks.css` add the following code:
 }
 ```
 
-## Step 5: Tasks Index
+## Step 4: Tasks Index
 
 In `app/views/tasks/index.html.erb`, delete any code that might already exist in this file or create this file if it does not yet exist and copy the below into it:
 
