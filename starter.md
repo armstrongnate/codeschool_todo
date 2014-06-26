@@ -11,8 +11,8 @@ Because there is a lot of initial setup required I have provided some code that 
 The files you will need are in Dropbox and can be downloaded from [here](https://www.dropbox.com/sh/dfa7pnsg6twuo71/AAAJkRBmYgdBOxO8yHZafXfia).
 
 Once downloaded:
-* copy the javascript (*.js) files to `app/vendor/assets/javascripts/`
-* copy `bootstrap.css` to `app/vendor/assets/stylesheets/`
+* copy the javascript (*.js) files to `vendor/assets/javascripts/`
+* copy `bootstrap.css` to `vendor/assets/stylesheets/`
 
 Now you need to tell `application.css` and `application.js` to load these added files.
 
